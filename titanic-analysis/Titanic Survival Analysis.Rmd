@@ -1,0 +1,51 @@
+---
+title: "Titanic Survival Analysis"
+author: "xipecast"
+date: "2026"
+output: html_document
+---
+
+## Overview
+Analysis of 891 Titanic passengers to determine survival factors.
+
+```{r setup, include=FALSE}
+library(tidyverse)
+titanic <- read_csv("/home/boss/Documents/myDocuments/ProjectsOnLenovo/xipecast-analyst-portfolio/titanic-analysis/data/titanic.csv")
+
+titanic %>%
+  mutate(Survived = ifelse(Survived == 1, "Survived", "Died")) %>%
+  ggplot(aes(x = Survived, fill = Survived)) +
+  geom_bar() +
+  labs(title = "Titanic Survival Count", x = "Status", y = "Count") +
+  theme_minimal()
+
+titanic %>%
+  mutate(Survived = ifelse(Survived == 1, "Survived", "Died")) %>%
+  ggplot(aes(x = Sex, fill = Survived)) +
+  geom_bar(position = "dodge") +
+  labs(title = "Survival by Gender", x = "Gender", y = "Count") +
+  theme_minimal()
+
+titanic %>%
+  mutate(Survived = ifelse(Survived == 1, "Survived", "Died")) %>%
+  ggplot(aes(x = factor(Pclass), fill = Survived)) +
+  geom_bar(position = "dodge") +
+  labs(title = "Survival by Class", x = "Class", y = "Count") +
+  theme_minimal()
+
+titanic %>%
+  mutate(Survived = ifelse(Survived == 1, "Survived", "Died")) %>%
+  ggplot(aes(x = Age, fill = Survived)) +
+  geom_histogram(bins = 30, position = "dodge") +
+  labs(title = "Survival by Age", x = "Age", y = "Count") +
+  theme_minimal()
+
+# Survival RATES (more meaningful than counts)
+titanic %>%
+  group_by(Sex) %>%
+  summarise(
+    total = n(),
+    survived = sum(Survived),
+    survival_rate = round(survived/total * 100, 1)
+  )
+```
