@@ -1,0 +1,27 @@
+---
+title: "Titanic Survival Analysis"
+author: "xipecast"
+date: "2026"
+output: html_document
+---
+
+```{r setup, include=FALSE}
+library(tidyverse)
+theme_set(theme_minimal(base_size = 14))
+titanic <- read_csv("/home/boss/Documents/myDocuments/ProjectsOnLenovo/xipecast-analyst-portfolio/titanic-analysis/data/titanic.csv")
+titanic_clean <- titanic %>%
+  mutate(Age = ifelse(is.na(Age), median(Age, na.rm = TRUE), Age)) %>%
+  mutate(Embarked = ifelse(is.na(Embarked), "S", Embarked)) %>%
+  select(-Cabin)
+```
+
+## Overview
+Analysis of 891 Titanic passengers to determine survival factors.
+
+## Key Findings
+| Factor | Finding |
+|--------|---------|
+| Gender | Women survived at 74.2% vs men at 18.9% |
+| Class | 1st class 63% vs 3rd class 24.2% |
+| Family | Small families had best odds |
+| Fare | Higher fare = better survival |
