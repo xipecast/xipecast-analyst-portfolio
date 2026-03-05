@@ -1,0 +1,18 @@
+# Virtual environment
+venv/
+
+# Data files
+data/
+*.csv
+*.zip
+
+# Python cache
+__pycache__/
+*.pyc
+
+# API keys
+.env
+*.json
+
+# Plots (optional - you may want to keep these)
+# *.png
