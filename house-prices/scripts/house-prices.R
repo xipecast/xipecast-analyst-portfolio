@@ -4,18 +4,31 @@
 # Date: 2026
 # ============================================
 
-library(dplyr, lib.loc="~/R/library")
-library(ggplot2, lib.loc="~/R/library")
-library(readr, lib.loc="~/R/library")
+# Detect which machine we're on
+if (file.exists("/mnt/SSD")) {
+  # Desktop
+  base_path <- "/mnt/SSD/ssd_Documents/PROJECTS/analyst-portfolio/house-prices"
+  lib_path <- "~/R/library"
+} else {
+  # Laptop
+  base_path <- "/home/boss/Documents/myDocuments/ProjectsOnLenovo/xipecast-analyst-portfolio/house-prices"
+  lib_path <- .libPaths()[1]
+}
+
+# Libraries
+library(dplyr, lib.loc = lib_path)
+library(ggplot2, lib.loc = lib_path)
+library(readr, lib.loc = lib_path)
 
 # Global Theme
 theme_set(theme_minimal(base_size = 14))
 
-# Output Path
-output_path <- "/mnt/SSD/ssd_Documents/PROJECTS/analyst-portfolio/house-prices/outputs/"
+# Dynamic Paths
+data_path <- file.path(base_path, "data/train.csv")
+output_path <- file.path(base_path, "outputs/")
 
 # Load Data
-houses <- read_csv("/mnt/SSD/ssd_Documents/PROJECTS/analyst-portfolio/house-prices/data/train.csv")
+houses <- read_csv(data_path)
 
 # ---- Price Distribution ----
 p1 <- ggplot(houses, aes(x = SalePrice)) +
